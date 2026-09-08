@@ -1,0 +1,22 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# WiX
+*.wixpdb
+*.wixobj
+
+# Temp / leftovers
+*.tmp
+*.tmp.*
+*~
+
+# Claude Code local settings
+.claude/settings.local.json

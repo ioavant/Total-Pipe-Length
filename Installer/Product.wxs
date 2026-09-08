@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product
+	  Id="*"
+	  Name="Vixeldorf Total Pipe Length"
+	  Language="1033"
+	  Version="!(bind.FileVersion.TotalPipeLengthDll)"
+	  Manufacturer="Vixeldorf"
+	  UpgradeCode="4AE83567-374A-4782-B67C-0C453198511D">
+
+		<Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of Total Pipe Length is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<UIRef Id="WixUI_FeatureTree"/>
+		<UIRef Id="WixUI_ErrorProgressText"/>
+
+		<WixVariable Id="WixUILicenseRtf" Value="License.rtf"/>
+		<WixVariable Id="WixUIBannerBmp" Value="UI\BannerVixeldorf.bmp"/>
+		<WixVariable Id="WixUIDialogBmp" Value="UI\DialogVixeldorf.bmp"/>
+
+		<Property Id="REVIT2022" Value="1"/>
+		<Property Id="REVIT2023" Value="1"/>
+		<Property Id="REVIT2024" Value="1"/>
+		<Property Id="REVIT2025" Value="1"/>
+		<Property Id="REVIT2026" Value="1"/>
+		<Property Id="REVIT2027" Value="1"/>
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="CommonAppDataFolder">
+				<Directory Id="VIXELDORFDIR" Name="Vixeldorf">
+					<Directory Id="TOTALPIPELENGTHDIR" Name="TotalPipeLength">
+						<Component Id="CoreFiles" Guid="4B0FB762-859A-4DD0-976D-0F7C0D9CD31C">
+							<File Id="TotalPipeLengthDll" Source="$(var.TotalPipeLength.TargetDir)TotalPipeLength.dll"/>
+						</Component>
+					</Directory>
+				</Directory>
+
+				<Directory Id="Autodesk" Name="Autodesk">
+					<Directory Id="Revit" Name="Revit">
+						<Directory Id="Addins" Name="Addins">
+							<Directory Id="R2022" Name="2022">
+								<Component Id="Addin2022" Guid="4E18EC2B-3370-43A7-A988-CFD56C2AE88A">
+									<Condition>REVIT2022=1</Condition>
+									<File Source="TotalPipeLength_22.addin"/>
+								</Component>
+							</Directory>
+							<Directory Id="R2023" Name="2023">
+								<Component Id="Addin2023" Guid="F2878C45-CC0C-41AD-938B-E7FDF683626B">
+									<Condition>REVIT2023=1</Condition>
+									<File Source="TotalPipeLength_23.addin"/>
+								</Component>
+							</Directory>
+							<Directory Id="R2024" Name="2024">
+								<Component Id="Addin2024" Guid="D3B7B747-CF0B-4347-8AEC-975206B82534">
+									<Condition>REVIT2024=1</Condition>
+									<File Source="TotalPipeLength_24.addin"/>
+								</Component>
+							</Directory>
+							<Directory Id="R2025" Name="2025">
+								<Component Id="Addin2025" Guid="4880BEB1-6CE4-4CD6-9C44-045E80D63A76">
+									<Condition>REVIT2025=1</Condition>
+									<File Source="TotalPipeLength_25.addin"/>
+								</Component>
+							</Directory>
+							<Directory Id="R2026" Name="2026">
+								<Component Id="Addin2026" Guid="6C8B69BA-FC25-45C0-AFF8-99C9338BD88A">
+									<Condition>REVIT2026=1</Condition>
+									<File Source="TotalPipeLength_26.addin"/>
+								</Component>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+
+			<!-- Revit 2027 no longer scans ProgramData for machine-wide add-in manifests.
+			     Third-party shared add-ins now live under Program Files\Autodesk\Revit\Addins\2027. -->
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="AutodeskPF" Name="Autodesk">
+					<Directory Id="RevitPF" Name="Revit">
+						<Directory Id="AddinsPF" Name="Addins">
+							<Directory Id="R2027PF" Name="2027">
+								<Component Id="Addin2027" Guid="2D9B7F34-6A1C-4E58-BF02-3C7E0A951D6B" Win64="yes">
+									<Condition>REVIT2027=1</Condition>
+									<File Source="TotalPipeLength_27.addin"/>
+								</Component>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="MainFeature" Title="Vixeldorf Total Pipe Length" Level="1" Display="expand">
+			<ComponentRef Id="CoreFiles"/>
+			<Feature Id="Revit2022Feature" Title="Revit 2022" Level="1" Absent="allow">
+				<ComponentRef Id="Addin2022"/>
+			</Feature>
+			<Feature Id="Revit2023Feature" Title="Revit 2023" Level="1" Absent="allow">
+				<ComponentRef Id="Addin2023"/>
+			</Feature>
+			<Feature Id="Revit2024Feature" Title="Revit 2024" Level="1" Absent="allow">
+				<ComponentRef Id="Addin2024"/>
+			</Feature>
+			<Feature Id="Revit2025Feature" Title="Revit 2025" Level="1" Absent="allow">
+				<ComponentRef Id="Addin2025"/>
+			</Feature>
+			<Feature Id="Revit2026Feature" Title="Revit 2026" Level="1" Absent="allow">
+				<ComponentRef Id="Addin2026"/>
+			</Feature>
+			<Feature Id="Revit2027Feature" Title="Revit 2027" Level="1" Absent="allow">
+				<ComponentRef Id="Addin2027"/>
+			</Feature>
+		</Feature>
+
+	</Product>
+
+	<Fragment>
+		<UI>
+			<Dialog Id="RevitSelectionDlg" Width="370" Height="270" Title="Select Revit Versions">
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="340" Height="15" Transparent="yes" NoPrefix="yes" Text="Select Revit versions to install the add-in:"/>
+				<Control Id="Revit2022" Type="CheckBox" X="20" Y="40" Width="200" Height="17" Property="REVIT2022" CheckBoxValue="1" Text="Revit 2022"/>
+				<Control Id="Revit2023" Type="CheckBox" X="20" Y="60" Width="200" Height="17" Property="REVIT2023" CheckBoxValue="1" Text="Revit 2023"/>
+				<Control Id="Revit2024" Type="CheckBox" X="20" Y="80" Width="200" Height="17" Property="REVIT2024" CheckBoxValue="1" Text="Revit 2024"/>
+				<Control Id="Revit2025" Type="CheckBox" X="20" Y="100" Width="200" Height="17" Property="REVIT2025" CheckBoxValue="1" Text="Revit 2025"/>
+				<Control Id="Revit2026" Type="CheckBox" X="20" Y="120" Width="200" Height="17" Property="REVIT2026" CheckBoxValue="1" Text="Revit 2026"/>
+				<Control Id="Revit2027" Type="CheckBox" X="20" Y="140" Width="200" Height="17" Property="REVIT2027" CheckBoxValue="1" Text="Revit 2027"/>
+				<Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Next">
+					<Publish Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+				</Control>
+				<Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back">
+					<Publish Event="NewDialog" Value="WelcomeDlg">1</Publish>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+			</Dialog>
+			<Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="RevitSelectionDlg">1</Publish>
+		</UI>
+	</Fragment>
+</Wix>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Vixeldorf Total Pipe Length</Name>
+    <Assembly>C:\ProgramData\Vixeldorf\TotalPipeLength\TotalPipeLength.dll</Assembly>
+    <AddInId>3BA80FBC-536D-4825-9037-781E98981A16</AddInId>
+    <VendorId>Vixeldorf</VendorId>
+    <VendorDescription>Vixeldorf TotalPipeLength</VendorDescription>
+    <Description>Calculate total length of selected linear elements (pipes, ducts, conduits, cable trays, lines), grouped by category.</Description>
+    <FullClassName>TotalPipeLength.App</FullClassName>
+  </AddIn>
+</RevitAddIns>
