@@ -31,8 +31,8 @@ MEP modelers, coordinators, and estimators who need a fast, throwaway quantity �
 Supported on Revit 2022 through 2027 (single installer, pick your versions during setup).
 
 ## App Version
-**Version Number:** 1.0.2
-**Version Description:** First public release. Totals the length of selected linear elements in Revit — pipes, ducts, conduits, cable trays, and model/detail lines. Measure an existing selection or pick elements on the fly; results are grouped by category with a combined total, split into horizontal and vertical runs, and shown in the project's own units. Entirely read-only — the tool never modifies the model.
+**Version Number:** 1.1.0
+**Version Description:** Native .NET 8 build for Revit 2025 and newer (Revit 2022–2024 keep the .NET Framework 4.8 build), so the add-in loads directly on Revit 2025.5+ instead of through the .NET compatibility layer. No change to what the tool does or how it is used. Still totals selected linear elements — pipes, ducts, conduits, cable trays, and model/detail lines — grouped by category with a combined total, split into horizontal and vertical runs, in the project's own units, and entirely read-only.
 
 ## General Usage Instructions
 1. (Optional) Select the linear elements you want to measure — pipes, ducts, conduits, cable trays, or lines. You can mix categories.
@@ -65,4 +65,5 @@ For support, contact us at yoav@vixeldorf.com or via <a href="https://www.vixeld
 https://www.vixeldorf.com
 
 ## Version History
+- **1.1.0** — Native .NET 8 build for Revit 2025+ (Revit 2022–2024 stay on .NET Framework 4.8); loads directly on Revit 2025.5+ without the compatibility layer. No functional change.
 - **1.0.2** — First public release. Total length of selected linear elements (pipes, ducts, conduits, cable trays, model/detail lines) with per-category breakdown, horizontal/vertical run split, project-unit formatting, and two selection modes (measure existing selection or pick on the fly). Read-only. Revit 2022–2027.
