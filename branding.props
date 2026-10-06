@@ -1,0 +1,88 @@
+<Project>
+
+  <!--
+    Total Pipe Length — product side of the branding configuration.
+
+    What a BRAND is (ribbon tab, About button, help URL, installer artwork,
+    update policy) lives in ..\_branding\<Brand>\brand.props and is shared by
+    every add-in. This file only describes THIS product, plus the handful of
+    values that legitimately differ per brand for it.
+
+    Switch brands with:  dotnet build -p:Brand=Tes     (or -p:Brand=Vixeldorf)
+  -->
+
+  <PropertyGroup>
+    <BrandProduct>TotalPipeLength</BrandProduct>
+    <BrandProductDisplayName>Total Pipe Length</BrandProductDisplayName>
+    <BrandProductDescription>Calculate total length of selected linear elements (pipes, ducts, conduits, cable trays, lines), grouped by category.</BrandProductDescription>
+
+    <!-- Namespace the generated Brand class is emitted into. -->
+    <BrandInfoNamespace>TotalPipeLength</BrandInfoNamespace>
+    <!-- IExternalApplication class the .addin manifests point at. -->
+    <BrandAppClassName>TotalPipeLength.App</BrandAppClassName>
+
+    <BrandSupportedRevitVersions>2022;2023;2024;2025;2026;2027</BrandSupportedRevitVersions>
+    <!-- Revit 2025+ load the net8.0-windows assembly; 2022-2024 keep net48. -->
+    <BrandNet8MinRevitVersion>2025</BrandNet8MinRevitVersion>
+
+    <!-- The add-in project folder; the engine derives the built DLL path from it. -->
+    <BrandProjectDir>$(MSBuildThisFileDirectory)Total Pipe Length\</BrandProjectDir>
+
+    <!-- Auto-generated per install location, so each brand gets its own. -->
+    <BrandCoreFilesGuid>*</BrandCoreFilesGuid>
+  </PropertyGroup>
+
+  <!-- ================================================================= -->
+  <!-- Vixeldorf — the public build, already shipped (1.0.2) on the        -->
+  <!-- Autodesk App Store.                                                 -->
+  <!--                                                                    -->
+  <!-- UpgradeCode and AddInId are lifted verbatim from the shipped        -->
+  <!-- Installer\Product.wxs and Installer\TotalPipeLength_24.addin, so    -->
+  <!-- existing installs upgrade cleanly. They must never change.          -->
+  <!--                                                                    -->
+  <!-- The per-version component GUIDs are regenerated: the manifests they -->
+  <!-- carry are renamed (TotalPipeLength_22.addin ->                      -->
+  <!-- Vixeldorf_TotalPipeLength_22.addin), and Windows Installer component -->
+  <!-- rules require a new GUID whenever a component's keypath changes.     -->
+  <!-- ================================================================= -->
+  <PropertyGroup Condition=" '$(Brand)' == 'Vixeldorf' ">
+    <!-- Vixeldorf products each get their own panel on the shared tab. -->
+    <BrandRibbonPanel>Total Pipe Length</BrandRibbonPanel>
+
+    <BrandUpgradeCode>4AE83567-374A-4782-B67C-0C453198511D</BrandUpgradeCode>
+    <BrandAddInId>3BA80FBC-536D-4825-9037-781E98981A16</BrandAddInId>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(Brand)' == 'Vixeldorf' ">
+    <BrandAddinComponent Include="2022"><Guid>4471300F-719A-46D3-BCC5-6F4888E83FC4</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2023"><Guid>EBEE93AB-2E50-44E1-99B2-BDB8149695C1</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2024"><Guid>5F950FFB-FB80-486E-8B22-8B85457F4F64</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2025"><Guid>9259024D-289F-4B0B-A7A2-833B8EDA6D5B</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2026"><Guid>EF5DD79C-85DC-4810-8017-5347A9B835A9</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2027"><Guid>5146CA11-A230-4FB7-A8E1-E0F7A29F06B4</Guid></BrandAddinComponent>
+  </ItemGroup>
+
+  <!-- ================================================================= -->
+  <!-- TES — fresh GUIDs, never shared with Vixeldorf or any other        -->
+  <!-- product, so the two MSIs install side by side. Not built or         -->
+  <!-- verified yet (Vixeldorf-only rollout); wired so enabling TES later  -->
+  <!-- is just `dotnet build -p:Brand=Tes`.                                -->
+  <!-- ================================================================= -->
+  <PropertyGroup Condition=" '$(Brand)' == 'Tes' ">
+    <!-- All TES add-ins share one "Tools" panel on the TES tab. -->
+    <BrandRibbonPanel>Tools</BrandRibbonPanel>
+
+    <BrandUpgradeCode>5A5F3C9D-7294-4DA4-B54A-CF019F3B7B4B</BrandUpgradeCode>
+    <BrandAddInId>A7209814-81BD-4043-9873-6FD107EFA83B</BrandAddInId>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(Brand)' == 'Tes' ">
+    <BrandAddinComponent Include="2022"><Guid>1CCB7D6A-F0CF-4965-80A1-76D0017D4D0C</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2023"><Guid>D5072821-818C-4600-9CE3-75573F54FB4E</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2024"><Guid>F7C1DCE7-FBB7-4B83-8A90-B660F7B67873</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2025"><Guid>B10DF24C-8E0C-4C53-A7D9-9021422236D5</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2026"><Guid>1A08BF2B-A1F4-4005-8245-FA3D520015F4</Guid></BrandAddinComponent>
+    <BrandAddinComponent Include="2027"><Guid>BEC8473B-1D71-478A-85D9-F0DB8B85EF13</Guid></BrandAddinComponent>
+  </ItemGroup>
+
+</Project>

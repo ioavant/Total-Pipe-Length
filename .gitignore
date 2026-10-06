@@ -20,3 +20,8 @@
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Branding engine — generated at build time, never commit
+Total Pipe Length/Properties/BrandInfo.cs
+Total Pipe Length/Properties/VersionInfo.cs
+Installer/brand.generated.wxi

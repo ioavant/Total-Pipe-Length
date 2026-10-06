@@ -10,8 +10,7 @@ namespace TotalPipeLength
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            string url = "https://www.vixeldorf.com";
-            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(Brand.HelpUrl) { UseShellExecute = true });
             return Result.Succeeded;
         }
     }
